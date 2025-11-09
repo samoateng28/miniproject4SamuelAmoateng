@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Samuel Media Blog{% endblock %}
+
+{% block content %}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-5 fw-bold text-primary">👋 Welcome Back, {% if user.is_authenticated %}{{ user.username }}{% else %}User{% endif %}!</h1>
+        <p class="lead text-muted">Your personal space for managing your profile, content, and activity.</p>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
+    
+    <div class="col">
+        <div class="card h-100 border-start border-5 border-primary shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-muted text-uppercase small">Posts Published</h5>
+                <h2 class="display-6 fw-bold mb-0">27</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card h-100 border-start border-5 border-success shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-muted text-uppercase small">Comments Received</h5>
+                <h2 class="display-6 fw-bold mb-0">1,450</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card h-100 border-start border-5 border-warning shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-muted text-uppercase small">Profile Views</h5>
+                <h2 class="display-6 fw-bold mb-0">8.9K</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100 border-start border-5 border-danger shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-muted text-uppercase small">New Messages</h5>
+                <h2 class="display-6 fw-bold mb-0">4</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    
+    <div class="col-lg-7">
+        
+        <div class="card p-3 shadow-sm mb-4">
+            <div class="card-body">
+                <h3 class="card-title fw-bold mb-3 text-secondary">🚀 Quick Actions</h3>
+                <div class="d-grid gap-2 d-md-block">
+                    <a href="/dashboard/create/" class="btn btn-primary btn-lg me-2 mb-2">📝 Create New Post</a>
+                    <button class="btn btn-outline-success btn-lg me-2 mb-2" type="button">📈 View Analytics</button>
+                    <a href="#" class="btn btn-outline-dark btn-lg mb-2" type="button">⚙️ Account Settings</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white fw-bold">
+                📰 Recent Content Activity
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Views</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>The Future of AI in Content Creation</td>
+                            <td><span class="badge bg-success">Published</span></td>
+                            <td>4,123</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-info">Edit</a></td>
+                        </tr>
+                        <tr>
+                            <td>Optimizing Workflow with CSS Grid (Draft)</td>
+                            <td><span class="badge bg-warning text-dark">Draft</span></td>
+                            <td>12</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-info">Edit</a></td>
+                        </tr>
+                        <tr>
+                            <td>Django Security Best Practices</td>
+                            <td><span class="badge bg-success">Published</span></td>
+                            <td>2,890</td>
+                            <td><a href="#" class="btn btn-sm btn-outline-info">Edit</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-light fw-bold">
+                👤 Profile Overview
+            </div>
+            <div class="card-body text-center">
+                <img src="https://ui-avatars.com/api/?name=Samuel+M&background=0D83BF&color=fff&size=80" class="rounded-circle mb-3" alt="User Avatar">
+                <h5 class="card-title fw-bold">{% if user.is_authenticated %}{{ user.username }}{% else %}Guest User{% endif %}</h5>
+                <p class="card-text small text-muted">Member Since: October 2025</p>
+                <p class="card-text small">Your role is currently Author.</p>
+                <a href="#" class="btn btn-sm btn-outline-secondary mt-2">Update Profile Details</a>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm">
+            <div class="card-header bg-light fw-bold">
+                🔔 Recent Activity Feed
+            </div>
+            <ul class="list-group list-group-flush small">
+                <li class="list-group-item">4:30 PM: Comment received on "The Future of AI..."</li>
+                <li class="list-group-item">10:15 AM: Draft "New Design Trends" autosaved.</li>
+                <li class="list-group-item">Yesterday: Profile details successfully updated.</li>
+                <li class="list-group-item">2 days ago: Post "Django Security" went live.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header bg-primary text-white border-0 rounded-top-4">
+        <h5 class="modal-title fw-bold" id="welcomeModalLabel">✨ New Dashboard Features!</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <p class="lead text-dark">We've added some great new tools to help you manage your content more effectively:</p>
+        
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item d-flex align-items-center">
+            <span class="badge bg-success rounded-pill me-3">1</span>
+            Real-time Metrics: Check your views and comments at a glance.
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <span class="badge bg-success rounded-pill me-3">2</span>
+            Draft Status: See the status of your recent unpublished posts.
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <span class="badge bg-success rounded-pill me-3">3</span>
+            Quick Create Button: Jump straight into writing from the actions panel.
+          </li>
+        </ul>
+        
+        <div class="alert alert-info small" role="alert">
+          Tip: Click 'View Analytics' in the Quick Actions section for in-depth data.
+        </div>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Later</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got It!</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
+        
+        // This is a simple client-side way to show the modal once per session
+        if (!sessionStorage.getItem('dashboardModalShown')) {
+            welcomeModal.show();
+            sessionStorage.setItem('dashboardModalShown', 'true');
+        }
+    });
+</script>
+{% endblock %}

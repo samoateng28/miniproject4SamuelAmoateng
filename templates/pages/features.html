@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Features - Samuel Media Blog{% endblock %}
+
+{% block content %}
+
+<div class="text-center py-5 mb-5 bg-white shadow-sm rounded-3">
+    <h1 class="display-5 fw-bold text-primary">Powerful Features Included</h1>
+    <p class="lead text-muted">A robust foundation built with modern tools to ensure stability and scalability.</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    
+    <div class="col">
+        <div class="card h-100 p-3 border-0 shadow-sm">
+            <div class="card-body text-center">
+                <span class="display-4 text-warning mb-3 d-block">🧱</span> 
+                <h5 class="card-title fw-bold">Modular Structure</h5>
+                <p class="card-text text-muted">Five core pages utilizing Template Inheritance for consistent design and easy maintenance across the entire site.</p>
+                <div class="badge bg-warning text-dark">Scalable</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card h-100 p-3 border-0 shadow-sm">
+            <div class="card-body text-center">
+                <span class="display-4 text-primary mb-3 d-block">✨</span>
+                <h5 class="card-title fw-bold">Modern Design</h5>
+                <p class="card-text text-muted">Built entirely on Bootstrap 5 components and responsive layouts, ensuring a beautiful and functional experience on all devices.</p>
+                <div class="badge bg-primary">Responsive</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card h-100 p-3 border-0 shadow-sm">
+            <div class="card-body text-center">
+                <span class="display-4 text-success mb-3 d-block">🔒</span>
+                <h5 class="card-title fw-bold">Secure Access</h5>
+                <p class="card-text text-muted">Complete user flow including registration, login, and logout functionality to manage authenticated content securely.</p>
+                <div class="badge bg-success">Private Content</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100 p-3 border-0 shadow-sm">
+            <div class="card-body text-center">
+                <span class="display-4 text-info mb-3 d-block">📧</span>
+                <h5 class="card-title fw-bold">User Interaction</h5>
+                <p class="card-text text-muted">A fully functioning contact form with validation built-in, making it easy for users to get in touch reliably.</p>
+                <div class="badge bg-info text-dark">Validated</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100 p-3 border-0 shadow-sm">
+            <div class="card-body text-center">
+                <span class="display-4 text-danger mb-3 d-block">⚙️</span>
+                <h5 class="card-title fw-bold">Backend Management</h5>
+                <p class="card-text text-muted">Includes a secure Admin interface paired with a sample data model for easy content management and control.</p>
+                <div class="badge bg-danger">Management</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100 p-3 border-0 shadow-sm">
+            <div class="card-body text-center">
+                <span class="display-4 text-secondary mb-3 d-block">⭐</span>
+                <h5 class="card-title fw-bold">Best Practice Code</h5>
+                <p class="card-text text-muted">Developed with attention to modern coding standards, readability, and maintainability for future growth.</p>
+                <div class="badge bg-secondary">Quality</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="mt-5 text-center p-4 bg-white rounded-3 shadow-sm border border-secondary border-opacity-25">
+    <h3 class="fw-bold">Ready to see it in action?</h3>
+    <p class="lead">Explore the live pages to experience the performance and design firsthand.</p>
+    <a href="/register/" class="btn btn-lg btn-warning me-2">Get Started Now</a>
+    <a href="/contact/" class="btn btn-lg btn-outline-primary">Ask a Question</a>
+</div>
+
+{% endblock %}

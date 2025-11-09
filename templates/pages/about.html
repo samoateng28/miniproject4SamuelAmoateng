@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}About - Samuel Media Blog{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        
+        <div class="p-5 mb-5 bg-white rounded-3 shadow-lg text-center border-start border-5 border-primary">
+            <h1 class="display-4 fw-bold text-dark">🚀 Our Mission: Clarity & Innovation</h1>
+            <p class="lead text-muted">
+                Samuel Media Blog is a platform focused on delivering a high-quality, modern web experience using cutting-edge tools. We aim to showcase best practices in development and design.
+            </p>
+            <hr class="my-4">
+            <a class="btn btn-outline-primary btn-lg" href="/contact/" role="button">Get in Touch</a>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <h2 class="fw-bold mb-3">🛠️ The Tech Stack</h2>
+                <p class="text-muted">
+                    This powerful demo application is built on a robust and popular modern technology stack, ensuring speed, security, and developer efficiency.
+                </p>
+                <ul class="list-group list-group-flush border rounded-3 shadow-sm">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Backend Framework
+                        <span class="badge bg-success rounded-pill p-2">Django 5</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Frontend Styling
+                        <span class="badge bg-primary rounded-pill p-2">Bootstrap 5.3.3</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Database
+                        <span class="badge bg-warning text-dark rounded-pill p-2">SQLite (Default)</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Templating
+                        <span class="badge bg-info text-dark rounded-pill p-2">Jinja/Django Templates</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-6 d-flex align-items-center">
+                <img src="https://picsum.photos/600/400?grayscale" class="img-fluid rounded-3 shadow-sm" alt="Image representing technology and code">
+            </div>
+        </div>
+        
+        <div class="card p-4 shadow-sm border-0">
+            <div class="card-body">
+                <h3 class="card-title fw-bold mb-3 text-secondary">🎯 Project Goals</h3>
+                <div class="row row-cols-1 row-cols-md-3 g-3 text-center">
+                    <div class="col">
+                        <div class="p-3 bg-light rounded-3 h-100">
+                            <h4 class="fw-bold text-primary">UI/UX Focus</h4>
+                            <p class="small text-muted mb-0">Demonstrate a clean, modern, and user-friendly interface.</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 bg-light rounded-3 h-100">
+                            <h4 class="fw-bold text-success">Full Stack Demo</h4>
+                            <p class="small text-muted mb-0">Implement key features like user auth, routing, and database models.</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 bg-light rounded-3 h-100">
+                            <h4 class="fw-bold text-warning">Responsiveness</h4>
+                            <p class="small text-muted mb-0">Ensure the layout adapts seamlessly to mobile, tablet, and desktop views.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

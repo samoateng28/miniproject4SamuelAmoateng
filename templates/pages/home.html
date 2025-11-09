@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Samuel Media Blog - Home{% endblock %}
+
+{% block content %}
+
+    <div class="row mb-5">
+        <div class="col-12">
+            {% if latest_post %}
+            <div class="card p-4 border-0 shadow-lg bg-white">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-5">
+                        <img src="https://picsum.photos/600/400?random=10" class="img-fluid rounded-3" alt="Featured Post Image" style="object-fit: cover; height: 100%;">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body ps-md-5">
+                            <span class="badge bg-danger mb-3 p-2 fw-bold">🔥 Editor's Pick</span>
+                            <h2 class="card-title display-5 fw-bold text-dark mb-3">{{ latest_post.title|default:"The Next Big Thing in Web Design" }}</h2>
+                            <p class="lead text-muted">{{ latest_post.content|truncatechars:180|default:"Discover the key trends shaping modern web interfaces, from minimalist aesthetics to complex micro-interactions." }}</p>
+                            
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <div>
+                                    <small class="text-muted">By {{ latest_post.author.username|default:"Admin" }}</small><br>
+                                    <small class="text-muted">{{ latest_post.created_on|date:"F d, Y"|default:"October 28, 2025" }}</small>
+                                </div>
+                                <a href="/blog/{{ latest_post.slug|default:'sample-slug' }}" class="btn btn-warning btn-lg fw-bold">
+                                    Read Full Story &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-info text-center">
+                <h4 class="alert-heading">No Posts Yet!</h4>
+                <p>Be the first to create content using the <a href="/dashboard/create/" class="alert-link">Create New Post</a> button in your dashboard.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <h3 class="fw-bold mb-4 text-dark border-bottom pb-2">📰 Recently Published</h3>
+    
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+        {% for post in recent_posts|slice:":6" %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="https://picsum.photos/600/400?random={{ forloop.counter }}" class="card-img-top" alt="Post Image">
+                
+                <div class="card-body d-flex flex-column">
+                    <span class="badge bg-secondary mb-2">Technology</span>
+                    
+                    <h5 class="card-title fw-bold">{{ post.title|default:"Sample Post Title"|truncatechars:40 }}</h5>
+                    <p class="card-text text-muted small">{{ post.content|truncatechars:80|default:"A brief summary of the post content..." }}</p>
+                    
+                    <div class="mt-auto">
+                        <a href="/blog/{{ post.slug|default:'sample-slug' }}" class="btn btn-sm btn-link p-0 text-primary fw-bold">Continue Reading</a>
+                        <small class="text-muted float-end">{{ post.created_on|date:"M d"|default:"Oct 25" }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p class="lead text-muted">No recent posts found. Start writing today!</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="text-center p-5 bg-light rounded-3 shadow-sm">
+        <h3 class="fw-bold">Ready to Dive Deeper?</h3>
+        <p class="lead text-muted">View all articles, tutorials, and insights in our complete archive.</p>
+        <a href="#" class="btn btn-primary btn-lg fw-bold">View All Posts</a>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load blog_filters %}
+{% block title %}{{ post.title }} - Samuel Media Blog{% endblock %}
+
+{% block content %}
+
+<div class="row g-5">
+    <div class="col-lg-8">
+        <article class="bg-white p-4 rounded-3 shadow-sm">
+            
+            <header class="pb-3 border-bottom mb-4">
+                <h1 class="display-4 fw-bold text-dark">{{ post.title }}</h1>
+                <p class="lead text-muted">{{ post.content|truncatechars:150 }}</p>
+                
+                <div class="d-flex align-items-center small text-muted">
+                    <span class="me-3">📅 {{ post.created_on|date:"F j, Y" }}</span>
+                    <span class="me-3">👤 By {{ post.author.username }}</span>
+                    <span class="badge bg-primary">Technology</span>
+                </div>
+            </header>
+            
+            <figure class="mb-4 text-center">
+                <img src="https://picsum.photos/800/400?random=11" class="img-fluid rounded-3 shadow-sm" alt="{{ post.title }}">
+                <figcaption class="mt-2 small text-muted">A visual representation of the post's topic.</figcaption>
+            </figure>
+            
+            <section class="post-content fs-5 text-dark">
+               {% for paragraph in post.content|linebreaksbr|split:"\n" %} 
+    <p>{{ paragraph|safe }}</p>
+{% endfor %}
+            </section>
+           
+        </article>
+        
+       
+        
+    </div>
+
+    <div class="col-lg-4">
+        
+        <div class="card mb-4 sidebar border-0 shadow-sm">
+          <div class="card-header bg-warning text-dark fw-bold">
+            ✍️ About the Author
+          </div>
+          <div class="card-body text-center">
+              <img src="https://ui-avatars.com/api/?name={{ post.author.username }}&background=0D83BF&color=fff&size=60" class="rounded-circle mb-3" alt="Author Avatar">
+              <h5 class="card-title fw-bold">{{ post.author.username }}</h5>
+              <p class="card-text small text-muted">A brief bio about the author, {{ post.author.username }}, and their expertise in media and technology.</p>
+              <a href="#" class="btn btn-sm btn-outline-primary">View More Posts</a>
+          </div>
+        </div>
+        
+        <div class="card mb-4 sidebar border-0 shadow-sm">
+            <div class="card-header bg-dark text-white fw-bold">
+                ✨ Recent Articles
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for recent in recent_posts %}
+                    <li class="list-group-item">
+                        <a href="{% url 'post_detail' slug=recent.slug %}" class="fw-bold text-decoration-none">{{ recent.title|truncatechars:40 }}</a>
+                        <p class="small text-muted mb-0">Posted {{ recent.created_on|date:"M d" }}</p>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item small text-muted">No other posts found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

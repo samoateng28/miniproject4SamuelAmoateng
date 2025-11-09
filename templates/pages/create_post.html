@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create New Post - Samuel Media Blog{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        
+        <div class="text-center mb-4 p-4 bg-white rounded-3 shadow-sm border-bottom border-primary border-3">
+            <h1 class="display-6 fw-bold text-dark">✍️ Start Writing Your Post</h1>
+            <p class="lead text-muted">Use the form below to draft and publish new content.</p>
+        </div>
+
+        <div class="card p-4 shadow-lg border-0">
+            <div class="card-body">
+                <form method="post" action="{% url 'create_post' %}">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.title.id_for_label }}" class="form-label fw-bold">Post Title <span class="text-danger">*</span></label>
+                        {{ form.title }}
+                        {% for error in form.title.errors %}
+                            <div class="alert alert-danger small mt-1 p-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.content.id_for_label }}" class="form-label fw-bold">Content <span class="text-danger">*</span></label>
+                        {{ form.content }}
+                        {% for error in form.content.errors %}
+                            <div class="alert alert-danger small mt-1 p-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.status.id_for_label }}" class="form-label fw-bold">Status</label>
+                        {{ form.status }}
+                        <div class="form-text">Set to 'Published' to make the post live immediately.</div>
+                        {% for error in form.status.errors %}
+                            <div class="alert alert-danger small mt-1 p-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg mt-3 fw-bold me-2">
+                        <i class="fas fa-save me-1"></i> Save and Publish
+                    </button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary btn-lg mt-3">Cancel</a>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}
