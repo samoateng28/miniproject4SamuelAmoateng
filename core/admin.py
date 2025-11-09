@@ -51,7 +51,7 @@ class PostAdmin(admin.ModelAdmin):
         # Display a success message
         self.message_user(
             request, 
-            f'{updated} post(s) were successfully marked as published.'
+            f'{updated} post(s) were successfully published.'
         )
     make_published.short_description = "Mark selected posts as Published"
 
