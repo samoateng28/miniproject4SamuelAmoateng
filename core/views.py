@@ -25,11 +25,10 @@ def home_view(request):
     """
     Retrieves published blog posts and prepares them for the homepage template.
     """
-    # 1. Fetch all posts that are marked as 'Published' (status=1)
-    #    and order them by the newest first ('-created_on').
+
     published_posts = Post.objects.filter(status=1).order_by('-created_on')
     
-    # 2. Prepare the context dictionary
+
     context = {
         # The first published post for the main 'Featured' section
         'latest_post': published_posts.first(), 
@@ -38,7 +37,7 @@ def home_view(request):
         'recent_posts': published_posts[1:7] 
     }
     
-    # 3. Render the template with the prepared context
+
     return render(request, 'pages/home.html', context)
 
 
@@ -48,11 +47,9 @@ def post_detail(request, slug):
     """
     Displays the full content of a single blog post.
     """
-    # Use get_object_or_404 to retrieve the post or raise a 404 error
-    # It ensures the post is published (status=1) and matches the slug.
+
     post = get_object_or_404(Post, slug=slug, status=1)
-    
-    # Optional: Fetch related or recent posts for the sidebar
+
     recent_posts = Post.objects.filter(status=1).exclude(slug=slug).order_by('-created_on')[:4]
     
     context = {
