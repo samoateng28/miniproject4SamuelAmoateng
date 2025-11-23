@@ -1,7 +1,7 @@
 
 
 from django.contrib import admin
-from .models import Post # Import the Post model you created
+from .models import Post,Comment # Import the Post model you created
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -75,3 +75,5 @@ class PostAdmin(admin.ModelAdmin):
             # Set author only on creation
             obj.author = request.user
         super().save_model(request, obj, form, change)
+
+    admin.site.register(Comment)

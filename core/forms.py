@@ -51,7 +51,7 @@ class ContactForm(forms.Form):
 
 
 from django import forms
-from .models import Post
+from .models import Post, Comment
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -64,4 +64,20 @@ class PostForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'A catchy title for your post'}),
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 15, 'placeholder': 'Start writing your amazing content here...'}),
             'status': forms.Select(attrs={'class': 'form-select'}),
+        }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Share your thoughts...',
+                'required': True
+            })
+        }
+        labels = {
+            'content': 'Your Comment'
         }

@@ -1,72 +1,133 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load blog_filters %}
+
 {% block title %}{{ post.title }} - Samuel Media Blog{% endblock %}
 
 {% block content %}
 
-<div class="row g-5">
+<div class="row justify-content-center">
     <div class="col-lg-8">
-        <article class="bg-white p-4 rounded-3 shadow-sm">
-            
-            <header class="pb-3 border-bottom mb-4">
-                <h1 class="display-4 fw-bold text-dark">{{ post.title }}</h1>
-                <p class="lead text-muted">{{ post.content|truncatechars:150 }}</p>
-                
-                <div class="d-flex align-items-center small text-muted">
-                    <span class="me-3">📅 {{ post.created_on|date:"F j, Y" }}</span>
-                    <span class="me-3">👤 By {{ post.author.username }}</span>
-                    <span class="badge bg-primary">Technology</span>
+        
+        <!-- Post Header -->
+        <div class="mb-4">
+            <span class="badge bg-primary mb-2">Technology</span>
+            <h1 class="display-4 fw-bold text-dark">{{ post.title }}</h1>
+            <div class="d-flex align-items-center text-muted small mt-3">
+                <img src="https://ui-avatars.com/api/?name={{ post.author.username }}&background=0D83BF&color=fff&size=40" 
+                     class="rounded-circle me-2" alt="Author">
+                <div>
+                    <div class="fw-bold text-dark">{{ post.author.username }}</div>
+                    <div>{{ post.created_on|date:"F d, Y" }} • {{ comment_count }} Comment{{ comment_count|pluralize }}</div>
                 </div>
-            </header>
-            
-            <figure class="mb-4 text-center">
-                <img src="https://picsum.photos/800/400?random=11" class="img-fluid rounded-3 shadow-sm" alt="{{ post.title }}">
-                <figcaption class="mt-2 small text-muted">A visual representation of the post's topic.</figcaption>
-            </figure>
-            
-            <section class="post-content fs-5 text-dark">
-               {% for paragraph in post.content|linebreaksbr|split:"\n" %} 
-    <p>{{ paragraph|safe }}</p>
-{% endfor %}
-            </section>
-           
-        </article>
-        
-       
-        
+            </div>
+        </div>
+
+        <!-- Featured Image -->
+        <img src="https://picsum.photos/800/400?random=1" class="img-fluid rounded-3 shadow-sm mb-4" alt="Post Image">
+
+        <!-- Post Content -->
+        <div class="card border-0 shadow-sm p-4 mb-4">
+            <div class="card-body">
+                <div class="lead">
+                    {{ post.content|linebreaks }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Comment Button -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-bold">💬 Comments ({{ comment_count }})</h3>
+            {% if user.is_authenticated %}
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#commentModal">
+                ✍️ Add Comment
+            </button>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-outline-primary">Login to Comment</a>
+            {% endif %}
+        </div>
+
+        <!-- Comments List -->
+        <div class="mb-5">
+            {% for comment in comments %}
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-start">
+                        <img src="https://ui-avatars.com/api/?name={{ comment.author.username }}&background=random&size=50" 
+                             class="rounded-circle me-3" alt="Commenter">
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="mb-0 fw-bold">{{ comment.author.username }}</h6>
+                                <small class="text-muted">{{ comment.created_on|date:"M d, Y - g:i A" }}</small>
+                            </div>
+                            <p class="mb-0">{{ comment.content }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="alert alert-info text-center">
+                <p class="mb-0">No comments yet. Be the first to share your thoughts!</p>
+            </div>
+            {% endfor %}
+        </div>
+
     </div>
 
+    <!-- Sidebar -->
     <div class="col-lg-4">
-        
-        <div class="card mb-4 sidebar border-0 shadow-sm">
-          <div class="card-header bg-warning text-dark fw-bold">
-            ✍️ About the Author
-          </div>
-          <div class="card-body text-center">
-              <img src="https://ui-avatars.com/api/?name={{ post.author.username }}&background=0D83BF&color=fff&size=60" class="rounded-circle mb-3" alt="Author Avatar">
-              <h5 class="card-title fw-bold">{{ post.author.username }}</h5>
-              <p class="card-text small text-muted">A brief bio about the author, {{ post.author.username }}, and their expertise in media and technology.</p>
-              <a href="#" class="btn btn-sm btn-outline-primary">View More Posts</a>
-          </div>
-        </div>
-        
-        <div class="card mb-4 sidebar border-0 shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-header bg-dark text-white fw-bold">
-                ✨ Recent Articles
+                📚 Recent Posts
             </div>
-            <ul class="list-group list-group-flush">
-                {% for recent in recent_posts %}
-                    <li class="list-group-item">
-                        <a href="{% url 'post_detail' slug=recent.slug %}" class="fw-bold text-decoration-none">{{ recent.title|truncatechars:40 }}</a>
-                        <p class="small text-muted mb-0">Posted {{ recent.created_on|date:"M d" }}</p>
-                    </li>
+            <div class="list-group list-group-flush">
+                {% for recent_post in recent_posts %}
+                <a href="{% url 'post_detail' recent_post.slug %}" 
+                   class="list-group-item list-group-item-action">
+                    <h6 class="mb-1 fw-bold">{{ recent_post.title|truncatechars:40 }}</h6>
+                    <small class="text-muted">{{ recent_post.created_on|date:"M d, Y" }}</small>
+                </a>
                 {% empty %}
-                    <li class="list-group-item small text-muted">No other posts found.</li>
+                <div class="list-group-item">No recent posts</div>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
+    </div>
+</div>
 
+<!-- Comment Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header bg-primary text-white border-0 rounded-top-4">
+                <h5 class="modal-title fw-bold" id="commentModalLabel">💬 Add Your Comment</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="">
+                {% csrf_token %}
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label for="{{ comment_form.content.id_for_label }}" class="form-label fw-bold">
+                            Share your thoughts on "{{ post.title|truncatechars:40 }}"
+                        </label>
+                        {{ comment_form.content }}
+                        <div class="form-text">Maximum 500 characters</div>
+                        {% for error in comment_form.content.errors %}
+                            <div class="alert alert-danger small mt-2 p-2">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="alert alert-info small mb-0" role="alert">
+                        <strong>💡 Tip:</strong> Be respectful and constructive in your comments!
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane me-1"></i> Post Comment
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
